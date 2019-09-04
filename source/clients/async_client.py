@@ -479,15 +479,31 @@ class DeribitAsyncClient(object):
 
 if __name__ == '__main__':
 
-    KEY = "k..."
-    SECRET = "s..."
-
-    client = DeribitAsyncClient(key=KEY, secret=SECRET)
-    instruments = ["BTC-PERPETUAL" for x in range(500)]
+    from source.utilities import grab_event_loop
 
     def on_orderbooks(sender, data):
         print(data)
 
-    sig_orderbook_snapshot_received.connect(on_orderbooks)
-    res = client.orderbooks(instruments=instruments, depth=10)
+    def run_sync(instruments, depth):
+
+        # Instantiate client
+        client = DeribitAsyncClient(key=KEY, secret=SECRET)
+
+        # Connect signal
+        sig_orderbook_snapshot_received.connect(on_orderbooks)
+
+        # Async run
+        loop = grab_event_loop()
+        result = loop.run_until_complete(client.orderbooks(instruments=instruments, depth=depth))
+        loop.close()
+
+        return result
+
+
+    KEY = "k.."
+    SECRET = "s.."
+
+    instruments = ["BTC-PERPETUAL" for x in range(100)]
+
+    run_sync(instruments=instruments, depth=10)
 

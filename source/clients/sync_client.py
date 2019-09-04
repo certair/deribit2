@@ -1,17 +1,12 @@
 from source.clients.async_client import DeribitAsyncClient
-from source.utilities import grab_event_loop
 
-# Import events
 from source.events import *
 
-# Import features
-import source.features.data as data
+from source.support.settings import (DEFAULT_DEPTH)
+from source.utilities import grab_event_loop
 
-# Import some Deribit specific classes
-from source.support.settings import (DEFAULT_KIND,
-                                                 DEFAULT_CURRENCY,
-                                                 DEFAULT_DEPTH,
-                                                 DERIBIT_WSS_URL)
+
+# Import features
 
 
 # ######################################################################
@@ -41,17 +36,37 @@ class DeribitClient(DeribitAsyncClient):
     # ##################################################################
 
     def orderbooks(self, instruments, depth=DEFAULT_DEPTH):
-        delegate = self.orderbooks
+        delegate = super().orderbooks
         return self.__sync_wrapper(delegate, instruments=instruments, depth=depth)
+
+
+    # ##################################################################
+    # SESSION
+    # ##################################################################
+
+    # Add missing routes
+
+    # ##################################################################
+    # ACCOUNT
+    # ##################################################################
+
+    # Add missing routes
+
+    # ##################################################################
+    # TRADING
+    # ##################################################################
+
+    # Add missing routes
+
 
 
 if __name__ == '__main__':
 
-    KEY = "_HYDKpRk"
-    SECRET = "K27BaSSjCEPDF6Eu1D7kT7ylojt8PgABZyXT758JZIk"
+    KEY = "k.."
+    SECRET = "s.."
 
     client = DeribitClient(key=KEY, secret=SECRET)
-    instruments = ["BTC-PERPETUAL" for x in range(500)]
+    instruments = ["BTC-PERPETUAL" for x in range(1)]
 
     def on_orderbooks(sender, data):
         print(data)

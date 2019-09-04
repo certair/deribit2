@@ -4,4 +4,4 @@ DEFAULT_INTERVAL = 100
 DEFAULT_KIND = "any"
 DEFAULT_INSTRUMENT = "BTC-PERPETUAL"
 DEFAULT_GROUP = 1
-DERIBIT_WSS_URL = "wss://www.source.com/ws/api/v2"
+DERIBIT_WSS_URL = "wss://www.deribit.com/ws/api/v2"

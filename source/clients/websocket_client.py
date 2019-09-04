@@ -1,17 +1,15 @@
 import json
 import websocket
-import time
 import threading
 import copy
 
 from typing import Callable
 
-# new imports
 import source.features.data as data
 import source.features.session as session
 from source.support.settings import DERIBIT_WSS_URL
 
-WEBSOCKET_DELAY = 0.5
+WEBSOCKET_DELAY = 1.0
 
 
 # ######################################################################
@@ -21,8 +19,6 @@ WEBSOCKET_DELAY = 0.5
 class DeribitChannelClient(object):
 
     def __init__(self,
-                 key: str = None,
-                 secret: str = None,
                  message_handler: Callable = None,
                  open_handler: Callable = None,
                  error_handler: Callable = None,
@@ -60,15 +56,6 @@ class DeribitChannelClient(object):
     # ##################################################################
     # PROPERTIES
     # ##################################################################
-
-    #@property
-    #def authentication(self):
-    #    return self.__authentication
-
-    #@property
-    #def auth(self):
-    #    msg = self.authentication.login_message()
-    #   return json.dumps(msg)
 
     @property
     def websocket(self):
@@ -199,6 +186,6 @@ if __name__ == '__main__':
     import time
 
     client = DeribitChannelClient()
-    time.sleep(0.5)
+    time.sleep(1.5)
     client.subscribe_quotes("BTC-PERPETUAL")
     time.sleep(30)
