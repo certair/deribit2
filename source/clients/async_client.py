@@ -500,8 +500,8 @@ if __name__ == '__main__':
         return result
 
 
-    KEY = "k.."
-    SECRET = "s.."
+    KEY = "key"
+    SECRET = "secret"
 
     instruments = ["BTC-PERPETUAL" for x in range(100)]
 
